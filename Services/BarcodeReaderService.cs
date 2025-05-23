@@ -110,6 +110,7 @@ namespace BarcodeReaderDemo.Services
 
             try
             {
+                imageStream.Position = 0;
                 using (SKBitmap bitmap = SKBitmap.Decode(imageStream))
                 {
                     results = DecodeBarcodesFromBitmap(bitmap, pageNumber);
