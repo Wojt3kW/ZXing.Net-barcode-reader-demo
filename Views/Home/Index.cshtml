@@ -1,0 +1,119 @@
+﻿@model BarcodeReaderDemo.Models.BarcodeViewModel
+
+@{
+    ViewData["Title"] = "Odczyt kodów QR i kodów kreskowych";
+}
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-md-12 text-center">
+            <h1 class="display-4">Odczyt kodów kreskowych i QR</h1>
+            <p class="lead">Prześlij plik PDF lub obraz zawierający kody kreskowe lub QR</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    Przesyłanie pliku
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="form-group mb-3">
+                            <label asp-for="UploadedFile" class="form-label"></label>
+                            <input asp-for="UploadedFile" class="form-control" type="file" accept=".pdf,.jpg,.jpeg,.png,.bmp,.gif,.tiff,.tif" />
+                            <small class="form-text text-muted">
+                                Dozwolone formaty: PDF, JPG, JPEG, PNG, BMP, GIF, TIFF
+                            </small>
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @Model.ErrorMessage
+                            </div>
+                        }
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Prześlij i analizuj</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.HasResults)
+    {
+        <div class="row mt-4">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        Wyniki odczytu
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Format kodu</th>
+                                    <th>Odczytany tekst</th>
+                                    <th>Strona</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var result in Model.Results)
+                                {
+                                    <tr>
+                                        <td>@result.BarcodeFormat</td>
+                                        <td>@result.BarcodeText</td>
+                                        <td>@result.PageNumber</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                Informacje o aplikacji
+            </div>            <div class="card-body">
+                <h5 class="card-title">Możliwości aplikacji</h5>
+                <ul>
+                    <li>Odczyt kodów QR z plików PDF i różnych formatów obrazów</li>
+                    <li>Odczyt kodów kreskowych 1D i 2D (EAN, CODE128, CODE39, DataMatrix i inne)</li>
+                    <li>Obsługa wielu stron w dokumentach PDF</li>
+                    <li>Automatyczne wykrywanie i odczyt wielu kodów na jednym obrazie</li>
+                    <li>Zwiększona jakość rozpoznawania dzięki dwukrotnemu powiększaniu rozmiaru obrazu</li>
+                    <li>Obsługa obrazów o różnej orientacji dzięki automatycznej rotacji</li>
+                </ul>
+                <p class="card-text">
+                    Aplikacja wykorzystuje bibliotekę <strong>ZXing.Net</strong> do odczytu kodów kreskowych i kodów QR z obrazów.
+                    Pliki PDF konwertowane są na obrazy za pomocą biblioteki <strong>Syncfusion.PdfToImageConverter.Net</strong>.
+                    Aplikacja obsługuje formaty: PDF, JPG, PNG, BMP, GIF oraz TIFF.
+                </p>
+                <h5 class="card-title mt-4">Technologie</h5>
+                <p class="card-text">
+                    Aplikacja została zbudowana przy użyciu technologii:
+                </p>
+                <ul>
+                    <li>ASP.NET Core 8.0 - nowoczesna platforma do tworzenia aplikacji webowych</li>
+                    <li>ZXing.Net - biblioteka do odczytu kodów kreskowych i QR</li>
+                    <li>Syncfusion PDF to Image Converter - konwersja plików PDF do obrazów</li>
+                    <li>Bootstrap 5 - framework CSS do tworzenia responsywnego interfejsu</li>
+                    <li>Docker - konteneryzacja aplikacji dla łatwego wdrożenia</li>
+                </ul>
+                <div class="alert alert-info mt-3" role="alert">
+                    <strong>Wskazówka:</strong> Dla najlepszych wyników upewnij się, że kody na skanowanych plikach są wyraźne i mają dobry kontrast.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
