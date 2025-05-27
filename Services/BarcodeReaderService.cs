@@ -100,6 +100,16 @@ namespace BarcodeReaderDemo.Services
                 imageStream.Position = 0;
                 using (SKBitmap bitmap = SKBitmap.Decode(imageStream))
                 {
+                    if (bitmap == null)
+                    {
+                        results.Add(new BarcodeResult
+                        {
+                            BarcodeFormat = "Error",
+                            BarcodeText = "Nie można odczytać obrazu (nieobsługiwany lub uszkodzony format pliku)",
+                            PageNumber = pageNumber.ToString()
+                        });
+                        return results;
+                    }
                     results = DecodeBarcodesFromBitmap(bitmap, pageNumber);
                 }
 
