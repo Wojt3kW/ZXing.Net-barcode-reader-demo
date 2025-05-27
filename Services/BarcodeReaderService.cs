@@ -15,7 +15,7 @@ namespace BarcodeReaderDemo.Services
             {
                 return ReadBarcodesFromPdf(model.UploadedFile);
             }
-            else if (extension is ".jpg" or ".jpeg" or ".png" or ".bmp" or ".gif" or ".tiff" or ".tif")
+            else if (extension is ".jpg" or ".jpeg" or ".png" or ".bmp")
             {
                 using var memoryStream = new MemoryStream();
                 model.UploadedFile.CopyTo(memoryStream);

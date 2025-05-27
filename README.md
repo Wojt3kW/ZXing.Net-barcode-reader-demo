@@ -11,7 +11,7 @@ Web application for reading barcodes and QR codes from PDF files and images.
 
 ### Features
 
-- Reading barcodes and QR codes from PDF files and images (JPG, PNG, BMP, GIF, TIFF)
+- Reading barcodes and QR codes from PDF files and images (JPG, PNG, BMP)
 - Support for multi-page PDF documents
 - Support for various code types:
   - 1D barcodes (EAN-13, CODE128, CODE39, etc.)
@@ -27,7 +27,7 @@ Web application for reading barcodes and QR codes from PDF files and images.
 
 ### Funkcjonalności
 
-- Odczyt kodów kreskowych i QR z plików PDF oraz obrazów (JPG, PNG, BMP, GIF, TIFF)
+- Odczyt kodów kreskowych i QR z plików PDF oraz obrazów (JPG, PNG, BMP)
 - Obsługa wielu stron w dokumentach PDF
 - Obsługa różnych typów kodów:
   - Kody kreskowe 1D (EAN-13, CODE128, CODE39 i inne)

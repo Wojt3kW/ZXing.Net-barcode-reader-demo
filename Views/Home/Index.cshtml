@@ -22,9 +22,9 @@
                     <form method="post" enctype="multipart/form-data">
                         <div class="form-group mb-3">
                             <label asp-for="UploadedFile" class="form-label"></label>
-                            <input asp-for="UploadedFile" class="form-control" type="file" accept=".pdf,.jpg,.jpeg,.png,.bmp,.gif,.tiff,.tif" />
+                            <input asp-for="UploadedFile" class="form-control" type="file" accept=".pdf,.jpg,.jpeg,.png,.bmp" />
                             <small class="form-text text-muted">
-                                Dozwolone formaty: PDF, JPG, JPEG, PNG, BMP, GIF, TIFF
+                                Dozwolone formaty: PDF, JPG, JPEG, PNG, BMP
                             </small>
                         </div>
 
@@ -97,7 +97,7 @@
                 <p class="card-text">
                     Aplikacja wykorzystuje bibliotekę <strong>ZXing.Net</strong> do odczytu kodów kreskowych i kodów QR z obrazów.
                     Pliki PDF konwertowane są na obrazy za pomocą biblioteki <strong>PDFtoImage</strong>.
-                    Aplikacja obsługuje formaty: PDF, JPG, PNG, BMP, GIF oraz TIFF.
+                    Aplikacja obsługuje formaty: PDF, JPG, PNG, BMP.
                 </p>
                 <h5 class="card-title mt-4">Technologie</h5>
                 <p class="card-text">

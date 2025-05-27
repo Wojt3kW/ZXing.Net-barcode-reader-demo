@@ -31,11 +31,11 @@ namespace BarcodeReaderDemo.Controllers
             }
 
             var fileExtension = Path.GetExtension(model.UploadedFile.FileName).ToLower();
-            var allowedExtensions = new[] { ".pdf", ".jpg", ".jpeg", ".png", ".bmp", ".gif", ".tiff", ".tif" };
+            var allowedExtensions = new[] { ".pdf", ".jpg", ".jpeg", ".png", ".bmp" };
 
             if (!allowedExtensions.Contains(fileExtension))
             {
-                model.ErrorMessage = "Dozwolone są tylko pliki PDF i obrazy (jpg, png, bmp, gif, tiff)";
+                model.ErrorMessage = "Dozwolone są tylko pliki PDF i obrazy (jpg, png, bmp)";
                 return View(model);
             }
 
