@@ -1,6 +1,5 @@
 using BarcodeReaderDemo.Models;
 using SkiaSharp;
-using Syncfusion.PdfToImageConverter;
 using ZXing;
 using ZXing.SkiaSharp;
 
@@ -8,13 +7,6 @@ namespace BarcodeReaderDemo.Services
 {
     public class BarcodeReaderService
     {
-        private readonly IWebHostEnvironment _environment;
-
-        public BarcodeReaderService(IWebHostEnvironment environment)
-        {
-            _environment = environment;
-        }
-
         public List<BarcodeResult> ProcessFile(BarcodeViewModel model)
         {
             string extension = Path.GetExtension(model.UploadedFile!.FileName).ToLower();
@@ -49,40 +41,35 @@ namespace BarcodeReaderDemo.Services
             {
                 using (MemoryStream stream = new MemoryStream())
                 {
-                    file.CopyTo(stream);                    // Reset the position of the memory stream to the beginning
-                    stream.Seek(0, SeekOrigin.Begin);
-                    PdfToImageConverter pdfToImageConverter = new PdfToImageConverter();
-                    pdfToImageConverter.Load(stream);
+                    file.CopyTo(stream);
+                    byte[] pdfBytes = stream.ToArray();
 
-                    // Pobieramy rozmiar strony, aby podwoić rozdzielczość zachowując proporcje
-                    for (int pageNumber = 0; pageNumber < pdfToImageConverter.PageCount; pageNumber++)
+                    // Pobierz liczbę stron
+                    var pageSizes = PDFtoImage.Conversion.GetPageSizes(pdfBytes);
+                    int pageCount = pageSizes.Count;
+
+                    for (int pageNumber = 0; pageNumber < pageCount; pageNumber++)
                     {
-                        // Ustawiamy dwukrotne powiększenie przy zachowaniu proporcji
-                        int originalWidth = 0;
-                        int originalHeight = 0;
+                        var size = pageSizes[pageNumber];
+                        int newWidth = (int)(size.Width * 2f);
+                        int newHeight = (int)(size.Height * 2f);
 
-                        // Pobieramy oryginalny rozmiar strony (w punktach)
-                        using (Stream sizeCheckStream = pdfToImageConverter.Convert(pageNumber, false, false))
+                        // Ustaw opcje renderowania z powiększeniem 2x
+                        var options = new PDFtoImage.RenderOptions
                         {
-                            sizeCheckStream.Position = 0; // Reset the position of the stream to the beginning
-                            using (SKImage tempImg = SKImage.FromEncodedData(sizeCheckStream))
-                            {
-                                originalWidth = tempImg.Width;
-                                originalHeight = tempImg.Height;
-                            }
+                            Width = newWidth,
+                            Height = newHeight,
+                            Dpi = 600,
+                        };
+
+                        using (var bitmap = PDFtoImage.Conversion.ToImage(pdfBytes, pageNumber, null, options))
+                        using (var imageStream = new MemoryStream())
+                        {
+                            bitmap.Encode(imageStream, SKEncodedImageFormat.Png, 100);
+                            imageStream.Position = 0;
+                            results.AddRange(ReadBarcodesFromImageStream(imageStream, pageNumber + 1));
                         }
-
-                        // Podwajamy rozmiary dla lepszego rozpoznawania kodów
-                        float newWidth = originalWidth * 2f;
-                        float newHeight = originalHeight * 2;
-
-                        // Konwertujemy z powiększeniem
-                        Stream imageStream = pdfToImageConverter.Convert(pageNumber, new Syncfusion.Drawing.SizeF(newWidth, newHeight), true, false, false);
-                        imageStream.Position = 0;
-                        results.AddRange(ReadBarcodesFromImageStream(imageStream, pageNumber + 1));
                     }
-
-
                 }
             }
             catch (Exception ex)

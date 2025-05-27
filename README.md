@@ -42,7 +42,7 @@ The application was built using the following technologies:
 
 - **ASP.NET Core 8.0** - framework for building modern web applications
 - **ZXing.Net** - open-source library for reading barcodes and QR codes
-- **Syncfusion PdfToImageConverter.Net** - library for converting PDF files to images
+- **PDFtoImage** - library for converting PDF files to images
 - **Bootstrap 5** - CSS framework for responsive user interface
 - **Docker** - containerization for easy deployment
 
@@ -52,7 +52,7 @@ Aplikacja została zbudowana z wykorzystaniem następujących technologii:
 
 - **ASP.NET Core 8.0** - framework do budowania nowoczesnych aplikacji webowych
 - **ZXing.Net** - biblioteka open-source do odczytu kodów kreskowych i QR
-- **Syncfusion PdfToImageConverter.Net** - biblioteka do konwersji plików PDF na obrazy
+- **PDFtoImage** - biblioteka do konwersji plików PDF na obrazy
 - **Bootstrap 5** - framework CSS dla responsywnego interfejsu użytkownika
 - **Docker** - konteneryzacja dla łatwego wdrażania
 
@@ -133,6 +133,8 @@ docker run -p 8080:8080 -p 8081:8081 barcode-reader-demo
 3. Click the "Upload and Analyze" button
 4. The code reading results will be displayed in a table
 
+> **Note:** PDF files are converted to images using the PDFtoImage library for improved barcode recognition.
+
 ### Limitations [EN]
 
 - Recognition quality depends on the clarity of codes and image quality
@@ -145,6 +147,8 @@ docker run -p 8080:8080 -p 8081:8081 barcode-reader-demo
 3. Kliknij przycisk "Prześlij i analizuj"
 4. Wyniki odczytu kodów zostaną wyświetlone w tabeli
 
+> **Uwaga:** Pliki PDF są konwertowane na obrazy za pomocą biblioteki PDFtoImage dla lepszej skuteczności rozpoznawania kodów.
+
 ### Ograniczenia [PL]
 
 - Jakość rozpoznawania zależy od wyraźności kodów oraz jakości obrazów
@@ -155,14 +159,14 @@ docker run -p 8080:8080 -p 8081:8081 barcode-reader-demo
 This project uses the following libraries according to their licenses:
 
 - ZXing.Net - Apache License 2.0
-- Syncfusion PdfToImageConverter.Net - requires purchase of a license for commercial applications
+- PDFtoImage - MIT License
 
 ### Licencja [PL]
 
 Ten projekt wykorzystuje następujące biblioteki zgodnie z ich licencjami:
 
 - ZXing.Net - Apache License 2.0
-- Syncfusion PdfToImageConverter.Net - wymaga zakupu licencji dla zastosowań komercyjnych
+- PDFtoImage - licencja MIT
 
 ---
 
